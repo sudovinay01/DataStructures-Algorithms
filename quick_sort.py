@@ -14,6 +14,7 @@ import numpy as np
 class QuickSort:
   """
       Class contains different operations problems on quick sort algorithm.
+      Author: Siddhi Chaithanya
   """
   def __init__(self, original_array):
     """
