@@ -55,6 +55,7 @@ class QuickSort:
       pivot_index = self.__pivot_placement(A, L, R, random_pivot)
       self.__quick_sort(A, L, pivot_index - 1, random_pivot)
       self.__quick_sort(A, pivot_index + 1, R, random_pivot)
+
     self.__sorted = True
 
   def __pivot_placement(self, A, L, R, random_pivot):
@@ -75,19 +76,23 @@ class QuickSort:
       (A[R], A[rand_index]) = (A[rand_index], A[R])
     else:
       verbose_output = "\n".join([verbose_output, str("Pivot index : {}\nPivot element : {}".format(R, A[R]))])
+    
     pivot_element = A[R]
     left_movement = L-1
     right_movement = L
+
     while right_movement < R:
       if A[right_movement] <= pivot_element:
         left_movement += 1
         (A[left_movement], A[right_movement]) = (A[right_movement], A[left_movement])
       right_movement += 1
+
     (A[left_movement+1], A[R]) = (A[R], A[left_movement+1])
 
     verbose_output = "\n".join([verbose_output, str("Correct pivot index : {}".format(left_movement+1)), str("Left partition : {}".format(A[L:left_movement+1])), str("Right partition : {}".format(A[left_movement+2:R+1]))])
     if self.__verbose:
       print(verbose_output,"\n======================================================")
+
     return left_movement + 1
 
   def setOriginalArray(self, original_array):
@@ -107,6 +112,7 @@ class QuickSort:
     if not self.__sorted :
       print("Array is not sorted yet. Please call apply_quick_sort() function.......")
       return
+
     print("Sorted array : ",self.__sorted_array)
 
 qs1 = QuickSort(np.random.randint(1, 20, size=21))
