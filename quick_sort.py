@@ -2,6 +2,7 @@
 """
 Description : Different problems on quick sort algorithm
 Author : Siddhi Chaithanya
+
 """
 
 import numpy as np
@@ -33,17 +34,15 @@ class QuickSort:
     # check if array is already sorted
     if self.__sorted :
       print("Array is already sorted.......")
-      print(self.__sorted_array)
       return
 
     self.__verbose = verbose
 
     # Apply quick sort algorithm and set sorted = True
-    self.quick_sort(self.__sorted_array, 0, len(self.__original_array)-1, randomPivot)
+    self.__quick_sort(self.__sorted_array, 0, len(self.__original_array)-1, randomPivot)
     self.__sorted = True
-    print("Array after sorting : ",self.__sorted_array)
 
-  def quick_sort(self, A, L, R, random_pivot):
+  def __quick_sort(self, A, L, R, random_pivot):
     """
     Performs quick sort on given array.
     Args:
@@ -53,12 +52,12 @@ class QuickSort:
       random_pivot : booean value to decide picking of pivot element
     """
     if L < R :
-      pivot_index = self.pivot_placement(A, L, R, random_pivot)
-      self.quick_sort(A, L, pivot_index - 1, random_pivot)
-      self.quick_sort(A, pivot_index + 1, R, random_pivot)
+      pivot_index = self.__pivot_placement(A, L, R, random_pivot)
+      self.__quick_sort(A, L, pivot_index - 1, random_pivot)
+      self.__quick_sort(A, pivot_index + 1, R, random_pivot)
     self.__sorted = True
 
-  def pivot_placement(self, A, L, R, random_pivot):
+  def __pivot_placement(self, A, L, R, random_pivot):
     """
       Choose pivot and find its right place in the array.
       Pivot can be choosen as the element at last index or randomly.
@@ -101,17 +100,31 @@ class QuickSort:
     self.__sorted_array = original_array
     self.__sorted = False
 
+  def displaySortedArray(self):
+    """
+    Displays sorted array
+    """
+    if not self.__sorted :
+      print("Array is not sorted yet. Please call apply_quick_sort() function.......")
+      return
+    print("Sorted array : ",self.__sorted_array)
+
 qs1 = QuickSort(np.random.randint(1, 20, size=21))
 qs1.apply_quick_sort(randomPivot=True, verbose=True)
 
 qs1.apply_quick_sort(randomPivot=True)
 
+qs1.displaySortedArray()
+
 qs1.setOriginalArray([2, 5, 20, 15, 4, 1, 0.5, 1.8])
 qs1.apply_quick_sort(randomPivot=True)
+qs1.displaySortedArray()
 
 qs1.setOriginalArray([2, 5, 20, 15, 4, 1, 0.5, 1.8])
 qs1.apply_quick_sort(randomPivot=True, verbose=True)
+qs1.displaySortedArray()
 
 qs1.setOriginalArray([2, 5, 20, 15, 4, 1, 0.5, 1.8])
 qs1.apply_quick_sort(verbose=True)
+qs1.displaySortedArray()
 
