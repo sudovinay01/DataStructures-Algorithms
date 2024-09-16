@@ -57,7 +57,7 @@ class SelectionSort:
     for i in range(L, R):
       min_index = np.argmin(A[i:R])
       (A[min_index+i], A[i]) = (A[i], A[min_index+i])
-      verbose_output = "\n".join([verbose_output, str("After first iteration \n Intermediate array : {}".format(A))])
+      verbose_output = "\n".join([verbose_output, str("After {}th iteration \nIntermediate array : {}".format(i, A))])
 
     self.__sorted = True
 
