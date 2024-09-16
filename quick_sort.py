@@ -2,6 +2,8 @@
 """
 Description : Different problems on quick sort algorithm
 Author : Siddhi Chaithanya
+*   Run Time Complexity : Average Case : θ(nlogn), Worst Case: O(n^2)
+*   Space Complexity : O(logn) ---> Only additional space taken by algorithm needs to be considered ignoring input given to the algorithm
 
 """
 
