@@ -61,8 +61,7 @@ class InsertionSort:
         A[j+1] = A[j]
         j -= 1
       A[j+1] = compare_point
-      verbose_output = "\n".join([verbose_output, str("After first iteration \nIntermediate array : {}".format(A))])
-
+      verbose_output = "\n".join([verbose_output, str("After {}th iteration \nIntermediate array : {}".format(i-1,A))])
     self.__sorted = True
 
     if self.__verbose:
