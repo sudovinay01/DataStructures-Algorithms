@@ -4,7 +4,7 @@
 # Insertion Sort
 *   Run Time Complexity :
     1.   Worst case : O(n^2)
-    2.   List item : Ω(n)
+    2.   Best case : Ω(n)
 *   Space Complexity : O(1) ---> Only additional space taken by algorithm needs to be considered ignoring input given to the algorithm
 """
 
