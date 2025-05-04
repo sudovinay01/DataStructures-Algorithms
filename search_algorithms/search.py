@@ -8,7 +8,7 @@ Author : Siddhi Chaithanya
     1.   Best Case : Ω(1)
     2.   Worst Case : O(n)
 
-*   Binary search (if array is already sorted)
+*   Binary search (array should be in sorted order)
 
     1.   Best Case : Ω(1)
     2.   List item : O(logn)
@@ -20,22 +20,39 @@ import numpy as np
 
 class Search(Algorithm):
     def __init__(self, original_array):
-        self.original_array = list(original_array)
+        if isinstance(original_array, list) or isinstance(original_array, set) or isinstance(original_array, tuple) or isinstance(original_array, np.ndarray):
+            self.original_array = list(original_array)
         self.verbose = False
-        self.is_sorted = False
+        self.__is_sorted = False
     
     def search(self, key, kind="linear", occurences="first"):
+        """
+        Performs search operation for key on given array
+        key : element to be searched
+        kind : "linear", "binary"
+        occurences : "first", "last", "all", "f", "l", "a" all are case insensitive
+        first : first most occurence of an element
+        last : last most occurence of an element
+        all : all occurences of an element
+        Note : For now this method only works for identical elements
+        """
         try:
             if kind == "linear":
-                return self.__linearSearch(key, occurences)
+                return self.__linear_search(key, occurences)
             elif kind == "binary":
-                return self.__binarySearch(key, 0, len(self.original_array), occurences)
+                self.__check_is_sorted()
+                if self.__is_sorted:
+                    return self.__binary_search(key, 0, len(self.original_array), occurences)
+                else:
+                    raise Exception(f"For binary search array should be sorted in ascending order. array = {self.original_array}")
             else:
                 raise OptionNotFound(kind)
-        except OptionNotFound as e:
-            print(f"Option kind = {kind} doesnot exist...")
+        except OptionNotFound as one:
+            print(f"Option kind = {kind} doesnot exist...{one}")
+        except Exception as e:
+            print(f"Caught exception : {e}")
     
-    def __linearSearch(self, key, occurences="first"):
+    def __linear_search(self, key, occurences="first"):
         """
         Performs Linear search algorithm on a given array
         """
@@ -62,32 +79,36 @@ class Search(Algorithm):
         except OptionNotFound as e:
             print(f"Exception caught : {e}")
     
-    def __binarySearch(self, key, left, right, occurences="first"):
+    def __binary_search(self, key, left, right, occurences="first", element_indices=[]):
         """
         Performs Binary search algorithm on a given array
         """
-        element_indices = []
-        arr_center = (left+right-1)//2
-        while left < right:
+        if left <= right:
+            arr_center = (left+right)//2
             if self.original_array[arr_center] > key:
-                right = arr_center-1
+                return self.__binary_search(key, left, arr_center-1, occurences)
             elif self.original_array[arr_center] < key:
-                left = arr_center+1
+                return self.__binary_search(key, arr_center+1, right, occurences)
             else:
                 if str(occurences).casefold() == "all" or str(occurences).casefold() == "a":
                     element_indices.append(arr_center)
-                    element_indices = element_indices + self.__binarySearch(key, left, arr_center-1, occurences) + self.__binarySearch(key, arr_center+1, right, occurences)
-                elif str(occurences).casefold() == "first" or str(occurences).casefold() == "f":
+                    self.__binary_search(key, left, arr_center-1, occurences)
+                    self.__binary_search(key, arr_center+1, right, occurences)
+                else:
                     if len(element_indices) == 1:
                         element_indices[0] = arr_center
                     else:
                         element_indices.append(arr_center)
-                    right = arr_center-1
-                elif str(occurences).casefold() == "last" or str(occurences).casefold() == "l":
-                    if len(element_indices) == 1:
-                        element_indices[0] = arr_center
-                    else:
-                        element_indices.append(arr_center)
-                    left = arr_center+1
-            arr_center = (left + right)//2
+                    
+                    if str(occurences).casefold() == "first" or str(occurences).casefold() == "f":
+                        return self.__binary_search(key, left, arr_center-1)
+                    if str(occurences).casefold() == "last" or str(occurences).casefold() == "l":
+                        return self.__binary_search(key, arr_center+1, right)
         return element_indices
+    
+    def __check_is_sorted(self):
+        if not self.__is_sorted:
+            for i in range(len(self.original_array)-1):
+                if self.original_array[i] > self.original_array[i+1]:
+                    return
+            self.__is_sorted = True
