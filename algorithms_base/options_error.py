@@ -1,0 +1,2 @@
+class OptionNotFound(Exception):
+    pass
