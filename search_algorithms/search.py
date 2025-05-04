@@ -101,9 +101,9 @@ class Search(Algorithm):
                         element_indices.append(arr_center)
                     
                     if str(occurences).casefold() == "first" or str(occurences).casefold() == "f":
-                        return self.__binary_search(key, left, arr_center-1)
+                        return self.__binary_search(key, left, arr_center-1, occurences)
                     if str(occurences).casefold() == "last" or str(occurences).casefold() == "l":
-                        return self.__binary_search(key, arr_center+1, right)
+                        return self.__binary_search(key, arr_center+1, right, occurences)
         return element_indices
     
     def __check_is_sorted(self):
