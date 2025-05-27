@@ -11,6 +11,7 @@
 from algorithms_base.algorithm import Algorithm
 from algorithms_base.options_error import OptionNotFound
 import numpy as np
+import re
 
 class Sort(Algorithm):
   """
@@ -24,7 +25,8 @@ class Sort(Algorithm):
       sorted_array: Array after sorted
       sorted: Boolean to show if array is sorted or not
     """
-    self.__original_array = self.__sorted_array = original_array
+    self.__original_array = original_array
+    self.__sorted_array = original_array
     self.__sorted = False
     self.__verbose = False
     print("This only works for numerical values. So, make sure to provide numerical array.....")
@@ -36,18 +38,25 @@ class Sort(Algorithm):
     verbose : True, False
     Default : apply("quick_random", False)
     """
+
     try:
-        if str(kind).casefold() == "quick_random" or str(kind).casefold() == "q_r":
+        if re.fullmatch(r"^(quick|q)_(random|r)$", kind, re.IGNORECASE):
+            print("Applying Quick Sorting With Random Pivot.....")
             self.apply_quick_sort(randomPivot=True, verbose=verbose)
-        elif str(kind).casefold() == "quick" or str(kind).casefold() == "q":
+        elif re.fullmatch(r"^(quick|q)$", kind, re.IGNORECASE):
+            print("Applying Quick Sorting with always last element as Pivot.....")
             self.apply_quick_sort(verbose=verbose)
-        elif str(kind).casefold() == "merge" or str(kind).casefold() == "m":
+        elif re.fullmatch(r"^(merge|m)$", kind, re.IGNORECASE):
+            print("Applying Merge Sorting.....")
             self.apply_merge_sort(verbose=verbose)
-        elif str(kind).casefold() == "selection" or str(kind).casefold() == "s":
+        elif re.fullmatch(r"^(selection|s)$", kind, re.IGNORECASE):
+            print("Applying Selection Sorting.....")
             self.apply_selection_sort(verbose=verbose)
-        elif str(kind).casefold() == "insertion" or str(kind).casefold() == "i":
+        elif re.fullmatch(r"^(insertion|i)$", kind, re.IGNORECASE):
+            print("Applying Insertion Sorting.....")
             self.apply_insertion_sort(verbose=verbose)
-        elif str(kind).casefold() == "bubble" or str(kind).casefold() == "b":
+        elif re.fullmatch(r"^(bubble|b)$", kind, re.IGNORECASE):
+            print("Applying Bubble Sorting.....")
             self.apply_bubble_sort(verbose=verbose)
         else:
             raise OptionNotFound(kind)
