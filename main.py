@@ -21,3 +21,5 @@ heap1.show_heap()
 
 heap1.heap_insert(4)
 heap1.show_heap()
+
+print(heap1.check_max_heap())
