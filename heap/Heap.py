@@ -2,6 +2,22 @@ import numpy as np
 from typing import List
 
 class Heap:
+    """
+    A class representing a max heap data structure.
+    This class provides methods to build a max heap, insert elements,
+    check if an array is a max heap, and display the current heap.
+    Attributes:
+        heap (np.ndarray): The array representing the heap.
+        isHeap (bool): A flag indicating whether the heap is built.
+    Methods:
+        __max_heapify(parent): Puts the element at the specified parent index in its correct position in the max heap.
+        __build_max_heap(): Builds the max heap from the initial array.
+        heap_insert(data): Inserts a new element or list of elements into the heap.
+        __check_max_heap(to_check): Checks if a given array is a max heap.
+        is_heap(h=None): Checks if the current heap or a specified array is a max heap.
+        show_heap(): Displays the current state of the heap.
+    """
+    
     def __init__(self, heap: List[int|float]):
         self.heap = np.array(heap)
         self.isHeap = False
@@ -10,6 +26,8 @@ class Heap:
     def __max_heapify(self, parent):
         """
         This max heapify function puts element specified by parent at its right place.
+        Time Complexity : O(log n) -> Depth of the heap is log n.
+        Space Complexity : O(1) -> No extra space is used.
         """
         left_child = 2*parent + 1
         right_child = 2*parent + 2
@@ -29,6 +47,7 @@ class Heap:
         """
         Build max heap.
         Time Complexity : O(n) -> Each element will be visited only once
+        Space Complexity : O(1) -> No extra space is used.
         """
         if not self.isHeap:
             for p in range(len(self.heap)//2-1, 0, -1):
@@ -36,6 +55,12 @@ class Heap:
             self.isHeap = True
     
     def heap_insert(self, data:int|float|List[int|float]):
+        """
+        Inserts a new element or list of new elements into the heap.
+        Time Complexity : O(log n) if data is a single element -> Insertion will take log n time as it will require to traverse the height of the heap.
+        Time Complexity : O(n) if data is a list -> Insertion will take linear time as it will require to build the heap.
+        Space Complexity : O(1) -> No extra space is used
+        """
         # Keeping the backup of original heap before insertion to roll back at later if insertion fails in middle of insertion operation
         heap_backup = self.heap.copy()
         try:
@@ -57,6 +82,8 @@ class Heap:
     def __check_max_heap(self, to_check):
         """
         Checks if given array to_check is max heap or not
+        Time Complexity : O(n) -> Atleast half of the elements will be checked to confirm if it is a max heap or not.
+        Space Complexity : O(1) -> No extra space is used.
         """
         try:
             for p in range(len(to_check)//2-1, 0, -1):
