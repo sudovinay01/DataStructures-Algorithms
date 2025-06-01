@@ -19,7 +19,7 @@ import numpy as np
 heap1 = Heap([9, 6, 5, 0, 8, 2, 1, 3])
 heap1.show_heap()
 
-heap1.heap_insert([4, 10, 15])
+heap1.heap_insert(4)
 heap1.show_heap()
 
-# print(heap1.is_heap(h=[9, 8, 5, 4, 6, 2, 1, 0, 3]))
+print(heap1.check_max_heap())
