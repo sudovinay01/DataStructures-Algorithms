@@ -71,8 +71,7 @@ class Sort(Algorithm):
             self.apply_bubble_sort(verbose=verbose)
         elif re.fullmatch(r"^(heap|h)$", kind, re.IGNORECASE):
             print("Applying Heap Sorting.....")
-            self.__sorted_array = Heap(self.__sorted_array).heap_sort()
-            self.__sorted = True
+            self.apply_heap_sort(verbose=verbose)
         else:
             raise OptionNotFound(kind)
         print("Array is now sorted...\nCall displaySortedArray() to view the sorted array \nTo sort another array set using setOriginalArray()")
@@ -154,8 +153,6 @@ class Sort(Algorithm):
       pivot_index = self.__pivot_placement(A, L, R, random_pivot)
       self.__quick_sort(A, L, pivot_index - 1, random_pivot)
       self.__quick_sort(A, pivot_index + 1, R, random_pivot)
-
-    self.__sorted = True
 
   def __pivot_placement(self, A, L, R, random_pivot):
     """
@@ -261,6 +258,7 @@ class Sort(Algorithm):
     verbose_output = "\n".join([verbose_output, str("Merged array : {}\nTemp array : {}".format(A, A_temp))])
     if self.__verbose:
       print(verbose_output,"\n======================================================")
+
   def apply_selection_sort(self, verbose=False):
     """
     Args:
@@ -293,8 +291,6 @@ class Sort(Algorithm):
       min_index = np.argmin(A[i:R])
       (A[min_index+i], A[i]) = (A[i], A[min_index+i])
       verbose_output = "\n".join([verbose_output, str("After {}th iteration \nIntermediate array : {}".format(i, A))])
-
-    self.__sorted = True
 
     if self.__verbose:
       print(verbose_output,"\n======================================================")
@@ -333,10 +329,29 @@ class Sort(Algorithm):
           (A[j], A[j+1]) = (A[j+1], A[j])
       verbose_output = "\n".join([verbose_output, str("After {}th iteration \nIntermediate array : {}".format(i,A))])
 
-    self.__sorted = True
-
     if self.__verbose:
       print(verbose_output,"\n======================================================")
+
+  def apply_heap_sort(self, verbose=False):
+    """
+    Args:
+      verbose: Boolean to decide if verbose output is required. Default value is False.
+    Returns:
+      None
+    """
+    # check if array is already sorted
+    if self.__sorted :
+      print("Array is already sorted.......")
+      return
+    
+    self.__verbose = verbose
+
+    # Apply heap sort algorithm and set sorted = True
+    self.__heap_sort(self.__sorted_array)
+    self.__sorted = True
+  
+  def __heap_sort(self, A):
+    self.__sorted_array = Heap(A).heap_sort(self.__verbose)
 
   def setOriginalArray(self, original_array: Union[List[int|float], np.ndarray]):
     """

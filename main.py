@@ -27,14 +27,14 @@ import numpy as np
 # print(heap1.is_heap(h=[9, 8, 5, 4, 6, 2, 1, 0, 3]))
 
 i1 = Sort(np.array([9, 8, 5, 4, 6, 2, 1, 0, 3, 4, 10, 15, 23, 1, 56, 103]))
-i1.apply(kind="quick", verbose=False)
+# i1.apply(kind="quick", verbose=False)
+# i1.displaySortedArray()
+
+# i1.setOriginalArray(np.random.randint(0, 100, size=50))
+i1.apply(kind="heap", verbose=True)
 i1.displaySortedArray()
 
-i1.setOriginalArray(np.random.randint(0, 100, size=50))
-i1.apply(kind="heap", verbose=False)
-i1.displaySortedArray()
-
-i1.setOriginalArray(np.random.randint(0, 100, size=50))
-i1.apply(kind="merge", verbose=False)
-i1.displaySortedArray()
+# i1.setOriginalArray(np.random.randint(0, 100, size=50))
+# i1.apply(kind="merge", verbose=False)
+# i1.displaySortedArray()
 

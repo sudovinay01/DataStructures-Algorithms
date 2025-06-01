@@ -146,7 +146,7 @@ class Heap:
         
         return self.heap[0]
     
-    def heap_sort(self):
+    def heap_sort(self, verbose=False):
         """
         This function sorts the heap and returns the sorted array.
         Time Complexity : O(n log n) -> Each element will be deleted from the heap and each deletion will take log n time.
@@ -156,9 +156,16 @@ class Heap:
         """
         heap_backup = self.heap.copy()
         after_sort = np.array([])
-        while heap_max := self.heap_delete_max():
+        verbose_output = str(f"======================================================\nHeap status : {self.heap}\nSorted elements : {after_sort}")
+        iteration = 1
+        while None != (heap_max := self.heap_delete_max()):
             after_sort = np.insert(after_sort, 0, heap_max)
+            verbose_output = "\n".join([verbose_output, str(f"======================================================\nAfter {iteration}th iteration \n1. Max Element : {heap_max}\n2. Heap status : {self.heap}\n3. Sorted elements : {after_sort}")])
+            iteration+=1
+        verbose_output = "\n".join([verbose_output, str("======================================================")])
         self.heap = heap_backup
+        if verbose:
+            print(verbose_output)
         return after_sort
 
     def show_heap(self):
