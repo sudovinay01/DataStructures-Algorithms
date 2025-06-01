@@ -10,6 +10,8 @@
 
 from algorithms_base.algorithm import Algorithm
 from algorithms_base.options_error import OptionNotFound
+from typing import List, Union
+from heap.Heap import Heap
 import numpy as np
 import re
 
@@ -18,18 +20,27 @@ class Sort(Algorithm):
       Class contains different problems on Insertion sort algorithm.
       Author: Siddhi Chaithanya
   """
-  def __init__(self, original_array):
+  def __init__(self, original_array: Union[List[int|float], np.ndarray]):
     """
     Args:
       original_array: List or array to be sorted
       sorted_array: Array after sorted
       sorted: Boolean to show if array is sorted or not
     """
-    self.__original_array = original_array
-    self.__sorted_array = original_array
+    if isinstance(original_array, np.ndarray):
+      if not np.issubdtype(original_array.dtype, np.integer) and not np.issubdtype(original_array.dtype, np.floating):
+        raise TypeError("Numpy array must be of int or float type.")
+      self.__original_array = original_array.copy()
+    elif isinstance(original_array, list):
+      if not all(isinstance(x, (int, float)) for x in original_array):
+        raise TypeError("List elements must be int or float.")
+      self.__original_array = np.array(original_array)
+    else:
+      raise TypeError("Original array must be a list of int/float or a numpy array of int/float.")
+    
+    self.__sorted_array = self.__original_array.copy()
     self.__sorted = False
     self.__verbose = False
-    print("This only works for numerical values. So, make sure to provide numerical array.....")
 
   def apply(self, kind="quick_random", verbose=False):
     """
@@ -58,6 +69,10 @@ class Sort(Algorithm):
         elif re.fullmatch(r"^(bubble|b)$", kind, re.IGNORECASE):
             print("Applying Bubble Sorting.....")
             self.apply_bubble_sort(verbose=verbose)
+        elif re.fullmatch(r"^(heap|h)$", kind, re.IGNORECASE):
+            print("Applying Heap Sorting.....")
+            self.__sorted_array = Heap(self.__sorted_array).heap_sort()
+            self.__sorted = True
         else:
             raise OptionNotFound(kind)
         print("Array is now sorted...\nCall displaySortedArray() to view the sorted array \nTo sort another array set using setOriginalArray()")
@@ -323,14 +338,24 @@ class Sort(Algorithm):
     if self.__verbose:
       print(verbose_output,"\n======================================================")
 
-  def setOriginalArray(self, original_array):
+  def setOriginalArray(self, original_array: Union[List[int|float], np.ndarray]):
     """
     Replaces original array with new array
     Args:
       original_array: List or array to be sorted
     """
-    self.__original_array = original_array
-    self.__sorted_array = original_array
+    if isinstance(original_array, np.ndarray):
+      if not np.issubdtype(original_array.dtype, np.integer) and not np.issubdtype(original_array.dtype, np.floating):
+        raise TypeError("Numpy array must be of int or float type.")
+      self.__original_array = original_array.copy()
+    elif isinstance(original_array, list):
+      if not all(isinstance(x, (int, float)) for x in original_array):
+        raise TypeError("List elements must be int or float.")
+      self.__original_array = np.array(original_array)
+    else:
+      raise TypeError("Original array must be a list of int/float or a numpy array of int/float.")
+
+    self.__sorted_array = self.__original_array.copy()
     self.__sorted = False
 
   def displaySortedArray(self):

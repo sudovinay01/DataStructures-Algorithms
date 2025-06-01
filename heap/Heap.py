@@ -1,5 +1,5 @@
 import numpy as np
-from typing import List
+from typing import List, Union
 
 class Heap:
     """
@@ -18,8 +18,17 @@ class Heap:
         show_heap(): Displays the current state of the heap.
     """
     
-    def __init__(self, heap: List[int|float]):
-        self.heap = np.array(heap)
+    def __init__(self, heap: Union[List[int | float], np.ndarray]):
+        if isinstance(heap, np.ndarray):
+            if not np.issubdtype(heap.dtype, np.integer) and not np.issubdtype(heap.dtype, np.floating):
+                raise TypeError("Numpy array must be of int or float type.")
+            self.heap = heap.copy()
+        elif isinstance(heap, list):
+            if not all(isinstance(x, (int, float)) for x in heap):
+                raise TypeError("List elements must be int or float.")
+            self.heap = np.array(heap)
+        else:
+            raise TypeError("Heap must be a list of int/float or a numpy array of int/float.")
         self.isHeap = False
         self.__build_max_heap()
     
@@ -50,7 +59,7 @@ class Heap:
         Space Complexity : O(1) -> No extra space is used.
         """
         if not self.isHeap:
-            for p in range(len(self.heap)//2-1, 0, -1):
+            for p in range(self.heap.size//2-1, -1, -1):
                 self.__max_heapify(p)
             self.isHeap = True
     
@@ -104,6 +113,54 @@ class Heap:
             return self.__check_max_heap(np.array(h))
         return self.__check_max_heap(self.heap)
     
+    def heap_delete_max(self):
+        """
+        Deletes the maximum element from the heap and returns it.
+        Time Complexity : O(log n) -> Deletion will take log n time as it will require to traverse the height of the heap.
+        Space Complexity : O(1) -> No extra space is used.
+        Returns:
+            int|float: The maximum element of the heap that was deleted.
+        """
+        if self.heap.size == 0:
+            print("Heap is empty....")
+            return None
+        
+        heap_max = self.heap[0]
+        self.heap[0] = self.heap[np.size(self.heap)-1]
+        self.heap = np.delete(self.heap, np.size(self.heap)-1)
+        self.__max_heapify(0)
+        return heap_max
+    
+    def show_heap_max(self):
+        """
+        Returns the maximum element of the heap without deleting it.
+        Time Complexity : O(1) -> As it just returns the first element of the heap.
+        Space Complexity : O(1) -> No extra space is used.
+        Returns:
+            int|float: The maximum element of the heap.
+        """
+
+        if self.heap.size == 0:
+            print("Heap is empty....")
+            return None
+        
+        return self.heap[0]
+    
+    def heap_sort(self):
+        """
+        This function sorts the heap and returns the sorted array.
+        Time Complexity : O(n log n) -> Each element will be deleted from the heap and each deletion will take log n time.
+        Space Complexity : O(n) -> A new array is created to store the sorted elements.
+        Returns:
+            np.ndarray: The sorted array.
+        """
+        heap_backup = self.heap.copy()
+        after_sort = np.array([])
+        while heap_max := self.heap_delete_max():
+            after_sort = np.insert(after_sort, 0, heap_max)
+        self.heap = heap_backup
+        return after_sort
+
     def show_heap(self):
         """
         Displays the current heap.
