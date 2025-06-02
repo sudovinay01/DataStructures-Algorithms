@@ -116,7 +116,6 @@ class Sort(Algorithm):
         j -= 1
       A[j+1] = compare_point
       verbose_output = "\n".join([verbose_output, str("After {}th iteration \nIntermediate array : {}".format(i-1,A))])
-    self.__sorted = True
 
     if self.__verbose:
       print(verbose_output,"\n======================================================")
