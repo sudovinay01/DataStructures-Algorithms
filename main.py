@@ -1,5 +1,7 @@
 from search_algorithms.search import Search
 from sorting_algorithms.Sort import Sort
+from linked_lists.singly_linked_lists import SLL
+from linked_lists.circular_linked_lists import CLL
 from heap.Heap import Heap
 import numpy as np
 
@@ -26,15 +28,30 @@ import numpy as np
 # heap1.show_heap()
 # print(heap1.is_heap(h=[9, 8, 5, 4, 6, 2, 1, 0, 3]))
 
-i1 = Sort(np.array([9, 8, 5, 4, 6, 2, 1, 0, 3, 4, 10, 15, 23, 1, 56, 103]))
+# i1 = Sort(np.array([9, 8, 5, 4, 6, 2, 1, 0, 3, 4, 10, 15, 23, 1, 56, 103]))
 # i1.apply(kind="quick", verbose=False)
 # i1.displaySortedArray()
 
 # i1.setOriginalArray(np.random.randint(0, 100, size=50))
-i1.apply(kind="heap", verbose=True)
-i1.displaySortedArray()
+# i1.apply(kind="heap", verbose=True)
+# i1.displaySortedArray()
 
 # i1.setOriginalArray(np.random.randint(0, 100, size=50))
 # i1.apply(kind="merge", verbose=False)
 # i1.displaySortedArray()
 
+# l1 = SLL()
+# l1._insert_head(5)
+# l1._insert_head(10)
+# l1._insert_end(15)
+# l1._insert_at_position(3, 3)
+# l1._show_linked_list()
+
+cl1 = CLL()
+cl1._insert_end(4)
+cl1._insert_end(5)
+cl1._insert_end(1)
+cl1._insert_end(10)
+cl1._insert_head(15)
+cl1._insert_at_position(3, 7)
+cl1._show_linked_list()
