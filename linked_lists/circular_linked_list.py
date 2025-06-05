@@ -102,6 +102,16 @@ class CLL(LL):
         self._length-=1
         return deleted
     
+    def reverse(self):
+        if not self._head or self._head==self._tail:
+            return
+        
+        prev_ant, front_ant = None, self._head
+        while front_ant != self._tail:
+            (front_ant, self._head.next, prev_ant) = (front_ant.next, prev_ant, self._head)
+            self._head = front_ant
+        (self._tail, self._head.next, self._tail.next) = (self._head.next, prev_ant, self._head)
+
     def _show_linked_list(self, symbol="->"):
         """
         This function displays the current Linked List

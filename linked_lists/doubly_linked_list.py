@@ -52,7 +52,7 @@ class DLL(LL):
         Time Complexity : O(n) n -> length of the Linked List
         Space Complexity : O(1)
         """
-        if not self._insert_head:
+        if not self._head:
             self._insert_head(data)
             return
         
@@ -78,5 +78,16 @@ class DLL(LL):
     def _delete_at_end(self):
         return super()._delete_at_end()
     
+    def reverse(self):
+        if not self._head or not self._head.next:
+            return
+        
+        front_ant = self._head.next
+        while front_ant:
+            (self._head.next, self._head.prev) = (self._head.prev, self._head.next)
+            self._head = front_ant
+            front_ant = front_ant.next
+        (self._head.next, self._head.prev) = (self._head.prev, self._head.next)
+
     def _show_linked_list(self, symbol="<->"):
         return super()._show_linked_list(symbol)

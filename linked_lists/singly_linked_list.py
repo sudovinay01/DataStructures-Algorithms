@@ -26,5 +26,15 @@ class SLL(LL):
     def _delete_at_head(self):
         return super()._delete_at_head()
     
+    def reverse(self):
+        if not self._head or not self._head.next:
+            return
+        
+        prev_ant, front_ant = None, self._head
+        while front_ant:
+            (front_ant, self._head.next, prev_ant) = (front_ant.next, prev_ant, self._head)
+            self._head = front_ant
+        self._head = prev_ant
+
     def _show_linked_list(self, symbol="->"):
         return super()._show_linked_list(symbol)
