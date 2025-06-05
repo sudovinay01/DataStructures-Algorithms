@@ -78,5 +78,5 @@ class DLL(LL):
     def _delete_at_end(self):
         return super()._delete_at_end()
     
-    def _show_linked_list(self):
-        return super()._show_linked_list()
+    def _show_linked_list(self, symbol="<->"):
+        return super()._show_linked_list(symbol)

@@ -105,7 +105,7 @@ class LL(ABC):
         return deleted
 
     @abstractmethod
-    def _show_linked_list(self):
+    def _show_linked_list(self, symbol="->"):
         """
         This function displays the current Linked List
         Time Complexity : O(n) n -> represents the length of the Linked List
@@ -117,7 +117,7 @@ class LL(ABC):
         print(f"Current {self._type}: ")
         temp = self._head
         while temp:
-            print(f"{temp.data} -> ", end="")
+            print(f"{temp.data} {symbol} ", end="")
             temp = temp.next
         print(f"{temp}")
 
