@@ -8,8 +8,8 @@ class SLL(LL):
     4. show_linked_list : Shows the current status of the Single Linked List
     5. len : Gets the length of Single Linked List
     """
-    def __init__(self, type="SLL", verbose=False):
-        super().__init__(type, verbose=verbose)
+    def __init__(self, type="SLL"):
+        super().__init__(type)
     
     def _insert_head(self, data):
         super()._insert_head(data)

@@ -2,8 +2,8 @@ from linked_lists.linked_list_base import LL
 from linked_lists.node import Node_V2
 
 class DLL(LL):
-    def __init__(self, type="DLL", verbose=False):
-        super().__init__(type, verbose=verbose)
+    def __init__(self, type="DLL"):
+        super().__init__(type)
 
     def _insert_head(self, data):
         """
@@ -11,9 +11,6 @@ class DLL(LL):
         Time Complexity : O(1)
         Space Complexity : O(1)
         """
-        if self._verbose:
-            print(f"Inserting data = {data} at head of the {self._type}.....")  
-        
         if not self._head:
             self._head = Node_V2(data, None, None)
             self._length+=1
@@ -29,9 +26,6 @@ class DLL(LL):
         Time Complexity : O(n) n -> Length of the Linked List
         Space Complexity : O(1)
         """
-        if self._verbose:
-            print(f"Inserting data = {data} at position : {position} of the {self._type}.....")        
-        
         if position > self._length+1:
             print(f"Invalid position, the maximum positions available are <= {self._length+1}")
             return
@@ -58,9 +52,6 @@ class DLL(LL):
         Time Complexity : O(n) n -> length of the Linked List
         Space Complexity : O(1)
         """
-        if self._verbose:
-            print(f"Inserting data = {data} at the end of the {self._type}.....")
-        
         if not self._insert_head:
             self._insert_head(data)
             return
@@ -78,8 +69,6 @@ class DLL(LL):
         Space Complexity : O(1)
         """
         if not self._head:
-            if self._verbose:
-                print(f"{self._type} has no elements. Deletion not possible...")
             return None
 
         (deleted, self._head, self._head.prev) = (self._head.data, self._head.next, None)
