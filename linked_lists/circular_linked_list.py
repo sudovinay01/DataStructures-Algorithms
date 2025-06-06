@@ -1,4 +1,4 @@
-from linked_lists.node import Node_V1
+from nodes.node import Node_V1
 from linked_lists.linked_list_base import LL
 class CLL(LL):
 
@@ -13,12 +13,12 @@ class CLL(LL):
         Space Complexity : O(1)
         """        
         if not self._head:
-            self._head = Node_V1(data, None)
+            self._head = Node_V1(data)
             (self._head.next, self._tail) = (self._head, self._head)
             self._length+=1
             return
         
-        node = Node_V1(data, None)
+        node = Node_V1(data)
         (node.next, self._head) = (self._head, node)
         self._length+=1
     
@@ -45,7 +45,7 @@ class CLL(LL):
             ant = ant.next
             temp+=1
         
-        new_ant = Node_V1(data, None)
+        new_ant = Node_V1(data)
         (new_ant.next, ant.next) = (ant.next, new_ant)
         self._length+=1
     

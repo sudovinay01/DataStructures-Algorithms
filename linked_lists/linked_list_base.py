@@ -1,4 +1,4 @@
-from linked_lists.node import Node_V1
+from nodes.node import Node_V1
 from abc import ABC, abstractmethod
 class LL(ABC):
     def __init__(self, type="LL"):
@@ -15,11 +15,11 @@ class LL(ABC):
         """
 
         if not self._head:
-            self._head = Node_V1(data, None)
+            self._head = Node_V1(data)
             self._length+=1
             return
         
-        node = Node_V1(data, None)
+        node = Node_V1(data)
         (node.next, self._head) = (self._head, node)
         self._length+=1
 
@@ -37,7 +37,7 @@ class LL(ABC):
         temp = self._head
         while temp.next:
             temp = temp.next
-        temp.next = Node_V1(data, None)
+        temp.next = Node_V1(data)
         self._length+=1
     
     @abstractmethod
@@ -64,7 +64,7 @@ class LL(ABC):
             ant = ant.next
             temp += 1
         
-        new_ant = Node_V1(data, None)
+        new_ant = Node_V1(data)
         (new_ant.next, ant.next) = (ant.next, new_ant)
         self._length+=1
 

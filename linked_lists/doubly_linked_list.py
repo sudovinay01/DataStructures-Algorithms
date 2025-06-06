@@ -1,5 +1,5 @@
 from linked_lists.linked_list_base import LL
-from linked_lists.node import Node_V2
+from nodes.node import Node_V2
 
 class DLL(LL):
     def __init__(self, type="DLL"):
@@ -12,11 +12,11 @@ class DLL(LL):
         Space Complexity : O(1)
         """
         if not self._head:
-            self._head = Node_V2(data, None, None)
+            self._head = Node_V2(data)
             self._length+=1
             return
         
-        node = Node_V2(data, None, None)
+        node = Node_V2(data)
         (node.next, self._head.prev, self._head) = (self._head, node, node)
         self._length+=1
     
@@ -59,7 +59,7 @@ class DLL(LL):
         ant = self._head
         while ant.next:
             ant = ant.next
-        ant.next = Node_V2(data, ant, None)
+        ant.next = Node_V2(data, ant)
         self._length+=1
     
     def _delete_at_head(self):
