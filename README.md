@@ -1,43 +1,87 @@
-# Data Structures And Algorithms
+# DataStructures-Algorithms
 
-This Python project is created with the intention of covering all the fundamental data structures and algorithms, making it a helpful resource for anyone starting their journey into DSA.  
-Currently, it includes searching and sorting techniques — with many more to come!
+A comprehensive collection of classic data structures and algorithms implemented in Python (with some Java). This repository is designed for learners, interview preparation, and anyone looking to strengthen their understanding of fundamental programming concepts.
 
+---
 
-## ✨ Features
+## Features
 
-- 🔍 Searching algorithms:
-  - Linear Search (first, last and all occurences)
-  - Binary Search (first, last and all occurences)
+- 📚 Implementations of common data structures (arrays, stacks, queues, linked lists, trees, etc.)
+- ⚡️ Classic sorting algorithms (Quick Sort, Merge Sort, Insertion Sort, Bubble Sort, Selection Sort, and more)
+- 🔍 Search algorithms (Binary Search, Linear Search, etc.)
+- 🧠 Problem-solving patterns and algorithmic challenges
+- 🏷️ Modular, well-documented, and easy-to-read code
+- 📈 Educational utilities (verbose/debug modes for algorithm tracing)
 
-- 🔃 Sorting algorithms:
-  - Bubble Sort (with verbose option)
-  - Selection Sort (with verbose option)
-  - Insertion Sort (with verbose option)
-  - Merge Sort (with verbose option)
-  - Quick Sort (with random pivot verbose option)
+---
 
-## How to use?
-Please look into file main.py for its usage
-1. For search
-   - s1 = Search([1, 2, 6, 7, 8, 9, 10, 10, 10, 10, 10, 10, 11, 12, 13, 14])
-   - print(s1.search(10, kind="binary", occurences="a"))
-   - kind : linear|l, binary|b ---> case insensitive
-2. For sorting
-   - i1 = Sort([5,4,3,2,1])
-   - i1.apply(verbose=True)
-   - i1.displaySortedArray()
-   - i1.setOriginalArray([1,2,-1,-2,-10,4,5])
-   - i1.apply(kind="insertion")
-   - i1.displaySortedArray()
-   - kind : quick_random|q_r, merge|m, selection|s, insertion|i, bubble|b ---> case insensitive
+## Folder Structure
 
-## 📦 Installation
+```
+.
+├── sorting_algorithms/
+│   ├── Sort.py
+│   ├── quick_sort.py
+│   └── ... (other sorting implementations)
+├── data_structures/
+│   ├── stack.py
+│   ├── queue.py
+│   └── ... (other data structures)
+├── searching_algorithms/
+│   ├── binary_search.py
+│   └── linear_search.py
+├── README.md
+└── ... (other files and folders)
+```
 
-Clone the repository:
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Python 3.x
+- (Optional) numpy for some implementations
+
+### Clone the Repository
 
 ```bash
-git clone [https://github.com/your-username/DSA-Algorithms-Python.git](https://github.com/AumaujayaSiddhi/DataStructures-Algorithms)
+git clone https://github.com/AumaujayaSiddhi/DataStructures-Algorithms.git
 cd DataStructures-Algorithms
+```
 
+---
 
+## Current Usage
+
+1. Create the .py file of your name
+2. import the required algorithm/data structures
+3. Experiment with different algorithms.
+4. Some scripts provide verbose or interactive modes. Check the file’s docstring or comments for usage details.
+
+---
+
+## Example: Using the Sort Class
+
+```python
+from sorting_algorithms.Sort import Sort
+
+arr = [5, 3, 2, 8, 1]
+sorter = Sort(arr)
+sorter.apply(kind="merge", verbose=True)
+sorter.displaySortedArray()
+```
+
+---
+
+## Contributing
+
+Contributions are welcome! Please open issues or pull requests for bug fixes, improvements, or new algorithms.
+
+1. Fork this repository
+2. Create a new branch (`git checkout -b feature/YourFeature`)
+3. Commit your changes (`git commit -am 'Add new feature'`)
+4. Push to the branch (`git push origin feature/YourFeature`)
+5. Open a Pull Request
+
+---
