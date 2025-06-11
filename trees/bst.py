@@ -6,7 +6,9 @@ class BST:
         self.root = None
 
     def __insert_iteration(self, data):
-        
+        """
+        Iterative version of BST insertion
+        """
         ant, parent_ant = self.root, None
         while ant:
             parent_ant = ant
@@ -28,6 +30,9 @@ class BST:
             parent_ant.left = new_ant 
     
     def __insert_recursion(self, item, data):
+        """
+        Recursive version BST insertion.
+        """
         if data <= item.data:
             if not item.left:
                 item.left = Node_V3(data)
@@ -99,10 +104,9 @@ class BST:
             memory_ant.left = None if not c.right else c.right
     
     def __delete_iteration(self, key):
-        if not self.root:
-            print(f"BST is empty")
-            return
-        
+        """
+        Iterative version of BST deletion
+        """
         # Finding the key that need to be deleted...
         parent_ant = None
         ant = self.root
@@ -119,20 +123,65 @@ class BST:
         # If key not found
         print(f"{key} not found")
 
-    def __delete_recursion(self, item, key):
-        print(f"Deletion using recursion is not yet implemented please use iteration...")
-        return
-    
-    def _delete(self, key, how="iteration"):
+    def __delete_recursion(self, parent, child, key):
+        """
+        Recursive version of BST deletion
+        """
+        if not child:
+            print(f"Key : {key} not found")
+            return
+        
+        if key < child.data:
+            self.__delete_recursion(child, child.left, key)
+        elif key > child.data:
+            self.__delete_recursion(child, child.right, key)
+        else:
+            # If the element that needs to be deleted is a leaf node
+            if not child.left and not child.right:
+                if not parent:
+                    self.root = None
+                elif parent.left == child:
+                    parent.left = None
+                else:
+                    parent.right = None
+            # If the element don't has right child
+            elif not child.right:
+                if not parent:
+                    self.root = child.left
+                elif parent.left == child:
+                    parent.left = child.left
+                else:
+                    parent.right = child.left
+                return
+            # If the element has right child
+            else:
+                parent = child
+                memory = None
+                child = child.right
+                while child.left:
+                    memory = child
+                    child = child.left
+                if not memory:
+                    parent.data = child.data
+                    parent.right = child.right
+                else:
+                    parent.data = child.data
+                    memory.left = None if not child.right else child.right
+
+    def _delete(self, key, how="recursion"):
         """
         BST deletion
         Time Complexity : O(n), θ(logn)
         Space Complexity : O(1)
         """
+        if not self.root:
+            print(f"BST is empty")
+            return
+        
         if re.fullmatch(r"(iteration|i)", how, re.IGNORECASE):
             return self.__delete_iteration(key)
         if re.fullmatch(r"(recursion|r)", how, re.IGNORECASE):
-            return self.__delete_recursion(self.root, key) 
+            return self.__delete_recursion(None, self.root, key) 
     
     def __inorder_traversal(self, p):
         """
