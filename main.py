@@ -1,8 +1,11 @@
 from search_algorithms.search import Search
 from sorting_algorithms.Sort import Sort
-from linked_lists.singly_linked_lists import SLL
-from linked_lists.circular_linked_lists import CLL
+from linked_lists.singly_linked_list import SLL
+from linked_lists.circular_linked_list import CLL
+from linked_lists.doubly_linked_list import DLL
 from heap.Heap import Heap
+from queues.que import Q
+from trees.bst import BST
 import numpy as np
 
 # search example
@@ -41,17 +44,62 @@ import numpy as np
 # i1.displaySortedArray()
 
 # l1 = SLL()
-# l1._insert_head(5)
-# l1._insert_head(10)
+# l1._insert_end(5)
+# l1._insert_end(10)
 # l1._insert_end(15)
-# l1._insert_at_position(3, 3)
+# l1._show_linked_list()
+# l1.reverse()
 # l1._show_linked_list()
 
-cl1 = CLL()
-cl1._insert_end(4)
-cl1._insert_end(5)
-cl1._insert_end(1)
-cl1._insert_end(10)
-cl1._insert_head(15)
-cl1._insert_at_position(3, 7)
-cl1._show_linked_list()
+# cl1 = CLL()
+# cl1._insert_end(4)
+# cl1._insert_end(5)
+# cl1._insert_end(1)
+# cl1._insert_end(10)
+# cl1._show_linked_list()
+# cl1.reverse()
+# cl1._show_linked_list()
+# cl1._insert_head(15)
+# cl1._insert_at_position(3, 7)
+# cl1._show_linked_list()
+# cl1._delete_at_head()
+# cl1._show_linked_list()
+# cl1._insert_head(16)
+# cl1._show_linked_list()
+# cl1._delete_at_end()
+# cl1._show_linked_list()
+# print(cl1._tail.next.data)
+# cl1._insert_at_position(12, 5)
+# cl1._show_linked_list()
+
+# dl1 = DLL()
+# dl1._insert_end(10)
+# dl1._insert_end(20)
+# dl1._insert_end(30)
+# dl1._show_linked_list()
+# dl1.reverse()
+# dl1._show_linked_list()
+
+# q1 = Q(max_length=4)
+# q1.enqueue(5)
+# q1.enqueue(2)
+# q1.enqueue(3)
+# q1.enqueue(4)
+# q1.enqueue(5)
+# q1.show_queue()
+# print(q1.peek())
+
+bs11 = BST()
+bs11._insert(10)
+bs11._insert(20, how="i")
+bs11._insert(6)
+bs11._insert(4)
+bs11._show_bst()
+bs11._delete(6)
+bs11._show_bst()
+bs11._delete(4)
+bs11._show_bst()
+bs11._delete(10)
+bs11._show_bst()
+bs11._delete(21)
+bs11._show_bst()

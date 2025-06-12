@@ -63,7 +63,7 @@ class BST:
         """
         Support code for __delete_iteration method
         """
-        # If key is a leaf node
+        # If the element that needs to be deleted is a leaf node
         if not c.left and not c.right:
             if not p:
                 self.root = None
@@ -71,37 +71,30 @@ class BST:
                 p.left = None
             else:
                 p.right = None
-            return
-        
-        # If ant.right is None that means we donot need to find
-        # the element that needs to be replaced with the node 
-        # that needs to be deleted
-        if not c.right:
+        # If the element don't has right child
+        elif not c.right:
             if not p:
                 self.root = c.left
             elif p.left == c:
                 p.left = c.left
             else:
                 p.right = c.left
-            return
-
-        # If ant.right is not None then the code comes to this part
-        # Now the element that needs to be replaced with the data that
-        # needs to be deleted needs to be found out
-        p = c
-        c = c.right
-        memory_ant = None
-        while c.left:
-            memory_ant = c
-            c = c.left
-
-        # Replacing the element that needs to be deleted with the right element
-        if not memory_ant:
-            p.data = c.data
-            p.right = c.right
+        # If the element has right child
         else:
-            p.data = c.data
-            memory_ant.left = None if not c.right else c.right
+            p = c
+            c = c.right
+            memory_ant = None
+            while c.left:
+                memory_ant = c
+                c = c.left
+
+            # Replacing the element with the inorder successor
+            if not memory_ant:
+                p.data = c.data
+                p.right = c.right
+            else:
+                p.data = c.data
+                memory_ant.left = None if not c.right else c.right
     
     def __delete_iteration(self, key):
         """
@@ -136,37 +129,7 @@ class BST:
         elif key > child.data:
             self.__delete_recursion(child, child.right, key)
         else:
-            # If the element that needs to be deleted is a leaf node
-            if not child.left and not child.right:
-                if not parent:
-                    self.root = None
-                elif parent.left == child:
-                    parent.left = None
-                else:
-                    parent.right = None
-            # If the element don't has right child
-            elif not child.right:
-                if not parent:
-                    self.root = child.left
-                elif parent.left == child:
-                    parent.left = child.left
-                else:
-                    parent.right = child.left
-                return
-            # If the element has right child
-            else:
-                parent = child
-                memory = None
-                child = child.right
-                while child.left:
-                    memory = child
-                    child = child.left
-                if not memory:
-                    parent.data = child.data
-                    parent.right = child.right
-                else:
-                    parent.data = child.data
-                    memory.left = None if not child.right else child.right
+            self.__delete_key(parent, child)
 
     def _delete(self, key, how="recursion"):
         """
