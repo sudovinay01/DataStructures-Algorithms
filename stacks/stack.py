@@ -23,10 +23,9 @@ class Stack:
         return self.stack._length == self.max_length
     
     def peek(self):
-        if self.isEmpty():
-            print(f"{self.stack._type} underflow.")
-            return
-        return self.stack._head.data
+        if not self.isEmpty():
+            return self.stack._head.data
+        return None
     
     def size(self):
         return self.stack._len()

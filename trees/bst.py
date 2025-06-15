@@ -1,48 +1,51 @@
 from nodes.node import Node_V3
+from trees.tree import Tree
 from algorithms_base.options_error import OptionNotFound
-import re
-class BST:
-    def __init__(self):
-        self.root = None
 
-    def __insert_iteration(self, data):
+import re
+
+class BST(Tree):
+    def __init__(self, type="BST"):
+        super().__init__(type)
+
+    def _insert_iteration(self, data):
         """
         Iterative version of BST insertion
         """
         ant, parent_ant = self.root, None
         while ant:
             parent_ant = ant
-            if data < ant.data:
+            if data < ant.data[0]:
                 ant = ant.left
-            elif data > ant.data:
+            elif data > ant.data[0]:
                 ant = ant.right
             else:
                 ant = ant.left
                 break
         
-        if data < parent_ant.data:
+        if data < parent_ant.data[0]:
             parent_ant.left = Node_V3(data)
-        elif data > parent_ant.data:
+        elif data > parent_ant.data[0]:
             parent_ant.right = Node_V3(data)
         else:
-            new_ant = Node_V3(data)
-            new_ant.left = ant
-            parent_ant.left = new_ant 
+            parent_ant.data.append(data)
     
-    def __insert_recursion(self, item, data):
+    def _insert_recursion(self, item, data):
         """
         Recursive version BST insertion.
         """
-        if data <= item.data:
+        if data < item.data[0]:
             if not item.left:
                 item.left = Node_V3(data)
             else:
-                self.__insert_recursion(item.left, data)
-        elif data > item.data:
+                self._insert_recursion(item.left, data)
+        elif data > item.data[0]:
             if not item.right:
                 item.right = Node_V3(data)
             else:
-                self.__insert_recursion(item.right, data)
+                self._insert_recursion(item.right, data)
+        else:
+            item.data.append(data)
 
     def _insert(self, data, how="recursion"):
         """
@@ -50,14 +53,79 @@ class BST:
         Time Complexity : O(n), θ(logn)
         Space Complexity : O(1)
         """
-        if not self.root:
-            self.root = Node_V3(data)
-            return
+        self.n_elements+=1
+        try:
+            if not self.root:
+                self.root = Node_V3(data)
+                return
 
-        if re.fullmatch(r"(iteration|i)", how, re.IGNORECASE):
-            return self.__insert_iteration(data)
-        if re.fullmatch(r"(recursion|r)", how, re.IGNORECASE):
-            return self.__insert_recursion(self.root, data)
+            if re.fullmatch(r"(iteration|i)", how, re.IGNORECASE):
+                return self._insert_iteration(data)
+            if re.fullmatch(r"(recursion|r)", how, re.IGNORECASE):
+                return self._insert_recursion(self.root, data)
+            raise OptionNotFound(f"Not a right choice, please select the right choice. \
+                                 The possible values of how can be any of four values \
+                                 from recursion, r, iteration, i")
+        except OptionNotFound as onf:
+            print(onf)
+            self.n_elements-=1
+        except Exception as e:
+            print(e)
+            self.n_elements-=1
+
+    def __search_recursion(self, item, key):
+        """
+        Recursive version BST search operation
+        """
+        # Key not found.
+        if not item:
+            return None
+        
+        # Check further
+        if key < item.data[0]:
+            return self.__search_recursion(item.left, key)
+        elif key > item.data[0]:
+            return self.__search_recursion(item.right, key)
+        else:
+            # Key found
+            return item
+
+    def __search_iteration(self, key):
+        """
+        Iterative version of BST search
+        """
+        item = self.root
+        while not item:
+            if key<item.data[0]:
+                item = item.left
+            elif key>item.data[0]:
+                item = item.right
+            else:
+                return item
+        return None
+    
+    def _search(self, key, how="recursion"):
+        """
+        BST search
+        Time Complexity : O(n)
+        Space Complexity : {O(n), θ(log(n))} ---> recursion, θ(1) ---> iteration
+        """
+        # BST is empty
+        if not self.root:
+            print(f"{self.type} is empty...")
+            return None
+        
+        try:
+            if re.fullmatch(r"(recursion|r)", how, re.IGNORECASE):
+                return self.__search_recursion(self.root, key)
+            if re.fullmatch(r"(iteration|i)", how, re.IGNORECASE):
+                return self.__search_iteration(key)
+            raise OptionNotFound(f"Not a right choice, please select the right choice. \
+                                 The possible values of how can be any of four values \
+                                 from recursion, r, iteration, i")
+        except OptionNotFound as onf:
+            print(onf)
+            return None
 
     def __delete_key(self, p, c):
         """
@@ -104,13 +172,14 @@ class BST:
         parent_ant = None
         ant = self.root
         while ant:
-            if key < ant.data:
+            if key < ant.data[0]:
                 parent_ant = ant
                 ant = ant.left
-            elif key > ant.data:
+            elif key > ant.data[0]:
                 parent_ant = ant
                 ant = ant.right
             else:
+                self.n_elements-=1
                 return self.__delete_key(parent_ant, ant)
         
         # If key not found
@@ -124,82 +193,35 @@ class BST:
             print(f"Key : {key} not found")
             return
         
-        if key < child.data:
+        if key < child.data[0]:
             self.__delete_recursion(child, child.left, key)
-        elif key > child.data:
+        elif key > child.data[0]:
             self.__delete_recursion(child, child.right, key)
         else:
+            self.n_elements-=1
             self.__delete_key(parent, child)
 
     def _delete(self, key, how="recursion"):
         """
         BST deletion
-        Time Complexity : O(n), θ(logn)
-        Space Complexity : O(1)
+        Time Complexity : O(n)
+        Space Complexity : {O(n), θ(log(n))} ---> recursion, θ(1) ---> iteration
         """
         if not self.root:
             print(f"BST is empty")
             return
-        
-        if re.fullmatch(r"(iteration|i)", how, re.IGNORECASE):
-            return self.__delete_iteration(key)
-        if re.fullmatch(r"(recursion|r)", how, re.IGNORECASE):
-            return self.__delete_recursion(None, self.root, key) 
-    
-    def __inorder_traversal(self, p):
-        """
-        BST Inorder traversal
-        Time Complexity : O(n)
-        Space Complexity : O(1)
-        """
-        if p:
-            self.__inorder_traversal(p.left)
-            print(p.data, end=",")
-            self.__inorder_traversal(p.right)
-
-    def __preorder_traversal(self, p):
-        """
-        BST Preorder traversal
-        Time Complexity : O(n)
-        Space Complexity : O(1)
-        """
-        if p:
-            print(p.data, end=",")
-            self.__preorder_traversal(p.left)
-            self.__preorder_traversal(p.right)
-    
-    def __postorder_traversal(self, p):
-        """
-        BST Post traversal
-        Time Complexity : O(n)
-        Space Complexity : O(1)
-        """
-        if p:
-            self.__postorder_traversal(p.left)
-            self.__postorder_traversal(p.right)
-            print(p.data, end=",")
-    
-    def _show_bst(self, how="inorder"):
-        """
-        BST traversals
-        Time Complexity : O(n)
-        Space Complexity : O(1)
-        """
-        if not self.root:
-            print(f"BST is empty...")
-            return
-        
         try:
-            print(f"Current BST : ")
-            if re.fullmatch(r"(inorder|in)", how, re.IGNORECASE):
-                self.__inorder_traversal(self.root)
-            elif re.fullmatch(r"(preorder|pre)", how, re.IGNORECASE):
-                self.__preorder_traversal(self.root)
-            elif re.fullmatch(r"(postorder|post)", how, re.IGNORECASE):
-                self.__postorder_traversal(self.root)
-            else:
-                raise OptionNotFound(f"Not a right choice please correct the how = {how}")
+            if re.fullmatch(r"(iteration|i)", how, re.IGNORECASE):
+                return self.__delete_iteration(key)
+            if re.fullmatch(r"(recursion|r)", how, re.IGNORECASE):
+                return self.__delete_recursion(None, self.root, key)
+            raise OptionNotFound(f"Not a right choice, please select the right choice. \
+                                 The possible values of how can be any of four values \
+                                 from recursion, r, iteration, i")
         except OptionNotFound as onf:
             print(onf)
-        finally:
-            print()
+        except Exception as e:
+            print("Deletion unsuccessfull...", e)
+
+    def show_bst(self, how="inorder"):
+        super()._show_tree(how)
