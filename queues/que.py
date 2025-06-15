@@ -8,19 +8,19 @@ class Q:
         if self.isFull():
             print(f"{self.q._type} is full. Max allowed {self.q._type} is {self.max_length}. Current Q size is {self.q._length}")
             return
-        return self.q._insert_end(data)
+        return self.q.insert_end(data)
     
     def dequeue(self):
         if self.isEmpty():
             print(f"{self.q._type} is empty...")
             return
-        return self.q._delete_at_head()
+        return self.q.delete_at_head()
     
     def isEmpty(self):
         return not self.q._head
     
     def size(self):
-        return self.q._len()
+        return self.q.len()
     
     def isFull(self):
         return self.q._length == self.max_length
@@ -32,4 +32,4 @@ class Q:
         return self.q._head.data
     
     def show_queue(self):
-        return self.q._show_linked_list()
+        return self.q.show_linked_list()

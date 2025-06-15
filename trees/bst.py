@@ -47,7 +47,7 @@ class BST(Tree):
         else:
             item.data.append(data)
 
-    def _insert(self, data, how="recursion"):
+    def insert(self, data, how="recursion"):
         """
         BST insertion
         Time Complexity : O(n), θ(logn)
@@ -104,7 +104,7 @@ class BST(Tree):
                 return item
         return None
     
-    def _search(self, key, how="recursion"):
+    def search(self, key, how="recursion"):
         """
         BST search
         Time Complexity : O(n)
@@ -201,7 +201,7 @@ class BST(Tree):
             self.n_elements-=1
             self.__delete_key(parent, child)
 
-    def _delete(self, key, how="recursion"):
+    def delete(self, key, how="recursion"):
         """
         BST deletion
         Time Complexity : O(n)
@@ -224,4 +224,4 @@ class BST(Tree):
             print("Deletion unsuccessfull...", e)
 
     def show_bst(self, how="inorder"):
-        super()._show_tree(how)
+        super().show_tree(how)

@@ -6,7 +6,7 @@ class CLL(LL):
         super().__init__(type)
         self._tail = None
     
-    def _insert_head(self, data):
+    def insert_head(self, data):
         """
         This function will insert at head of the circular linked list
         Time Complexity : O(1)
@@ -22,7 +22,7 @@ class CLL(LL):
         (node.next, self._head) = (self._head, node)
         self._length+=1
     
-    def _insert_at_position(self, data, position):
+    def insert_at_position(self, data, position):
         """
         The function inserts the data at the position specified by position
         Time Complexity : O(n) n -> Length of the Linked List
@@ -33,11 +33,11 @@ class CLL(LL):
             return
 
         if position == 1:
-            self._insert_head(data)
+            self.insert_head(data)
             return
         
         if position == self._length+1:
-            self._insert_end(data)
+            self.insert_end(data)
             return
         
         ant, temp = self._head, 1
@@ -49,21 +49,21 @@ class CLL(LL):
         (new_ant.next, ant.next) = (ant.next, new_ant)
         self._length+=1
     
-    def _insert_end(self, data):
+    def insert_end(self, data):
         """
         This function inserts the data at the end of the Linked List
         Time Complexity : O(1) -> because we have a pointer which points at the end of the CLL
         Space Complexity : O(1)
         """        
         if not self._head:
-            self._insert_head(data)
+            self.insert_head(data)
             return
         
         node = Node_V1(data, self._head)
         (self._tail.next, self._tail) = (node, node)
         self._length+=1
     
-    def _delete_at_head(self):
+    def delete_at_head(self):
         """
         This function deletes the element at the head of the Linked List
         Time Complexity : O(1)
@@ -81,7 +81,7 @@ class CLL(LL):
         self._length-=1
         return deleted
     
-    def _delete_at_end(self):
+    def delete_at_end(self):
         """
         This function deletes the element at the end of the Linked List
         Time Complexity : O(n) n -> length of the Linked List
@@ -112,7 +112,7 @@ class CLL(LL):
             self._head = front_ant
         (self._tail, self._head.next, self._tail.next) = (self._head.next, prev_ant, self._head)
 
-    def _show_linked_list(self, symbol="->"):
+    def show_linked_list(self, symbol="->"):
         """
         This function displays the current Linked List
         Time Complexity : O(n) n -> represents the length of the Linked List

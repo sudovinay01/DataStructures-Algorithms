@@ -11,20 +11,20 @@ class SLL(LL):
     def __init__(self, type="SLL"):
         super().__init__(type)
     
-    def _insert_head(self, data):
-        super()._insert_head(data)
+    def insert_head(self, data):
+        super().insert_head(data)
 
-    def _insert_end(self, data):
-        super()._insert_end(data)
+    def insert_end(self, data):
+        super().insert_end(data)
 
-    def _insert_at_position(self, data, position):
-        super()._insert_at_position(data, position)
+    def insert_at_position(self, data, position):
+        super().insert_at_position(data, position)
 
-    def _delete_at_end(self):
-        return super()._delete_at_end()
+    def delete_at_end(self):
+        return super().delete_at_end()
     
-    def _delete_at_head(self):
-        return super()._delete_at_head()
+    def delete_at_head(self):
+        return super().delete_at_head()
     
     def reverse(self):
         if not self._head or not self._head.next:
@@ -36,5 +36,5 @@ class SLL(LL):
             self._head = front_ant
         self._head = prev_ant
 
-    def _show_linked_list(self, symbol="->"):
-        return super()._show_linked_list(symbol)
+    def show_linked_list(self, symbol="->"):
+        return super().show_linked_list(symbol)

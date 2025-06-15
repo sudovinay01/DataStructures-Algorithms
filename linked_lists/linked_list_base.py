@@ -7,7 +7,7 @@ class LL(ABC):
         self._type = type
     
     @abstractmethod
-    def _insert_head(self, data):
+    def insert_head(self, data):
         """
         This function will insert at head of the linked list
         Time Complexity : O(1)
@@ -24,14 +24,14 @@ class LL(ABC):
         self._length+=1
 
     @abstractmethod
-    def _insert_end(self, data):
+    def insert_end(self, data):
         """
         This function inserts the data at the end of the Linked List
         Time Complexity : O(n) n -> length of the Linked List
         Space Complexity : O(1)
         """
         if not self._head:
-            self._insert_head(data)
+            self.insert_head(data)
             return
         
         temp = self._head
@@ -41,7 +41,7 @@ class LL(ABC):
         self._length+=1
     
     @abstractmethod
-    def _insert_at_position(self, data, position):
+    def insert_at_position(self, data, position):
         """
         The function inserts the data at the position specified by position
         Time Complexity : O(n) n -> Length of the Linked List
@@ -56,7 +56,7 @@ class LL(ABC):
             return
         
         if position == self._length+1:
-            self._insert_end(data)
+            self.insert_end(data)
             return
 
         temp, ant = 1, self._head
@@ -69,7 +69,7 @@ class LL(ABC):
         self._length+=1
 
     @abstractmethod
-    def _delete_at_head(self):
+    def delete_at_head(self):
         """
         This function deletes the element at the head of the Linked List
         Time Complexity : O(1)
@@ -83,7 +83,7 @@ class LL(ABC):
         return deleted
     
     @abstractmethod
-    def _delete_at_end(self):
+    def delete_at_end(self):
         """
         This function deletes the element at the end of the Linked List
         Time Complexity : O(n) n -> length of the Linked List
@@ -105,7 +105,7 @@ class LL(ABC):
         return deleted
 
     @abstractmethod
-    def _show_linked_list(self, symbol="->"):
+    def show_linked_list(self, symbol="->"):
         """
         This function displays the current Linked List
         Time Complexity : O(n) n -> represents the length of the Linked List
@@ -121,7 +121,7 @@ class LL(ABC):
             temp = temp.next
         print(f"{temp}")
 
-    def _len(self):
+    def len(self):
         """
         The function returns the length of the Linked List
         Time Complexity : O(1)

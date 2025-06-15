@@ -8,13 +8,13 @@ class Stack:
         if self.isFull():
             print(f"{self.stack._type} overflow. Max allowed stack size is {self.max_length}")
             return
-        return self.stack._insert_head(data)
+        return self.stack.insert_head(data)
 
     def pop(self):
         if self.isEmpty():
             print(f"{self.stack._type} underflow.")
             return
-        return self.stack._delete_at_head()
+        return self.stack.delete_at_head()
     
     def isEmpty(self):
         return not self.stack._head
@@ -28,7 +28,7 @@ class Stack:
         return None
     
     def size(self):
-        return self.stack._len()
+        return self.stack.len()
     
     def show_stack(self):
-        return self.stack._show_linked_list()       
+        return self.stack.show_linked_list()       

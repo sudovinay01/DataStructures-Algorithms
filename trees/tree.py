@@ -12,15 +12,15 @@ class Tree(ABC):
         self.type = type
     
     @abstractmethod
-    def _insert(self, data):
+    def insert(self, data):
         pass
 
     @abstractmethod
-    def _delete(self, key):
+    def delete(self, key):
         pass
     
     @abstractmethod
-    def _search(self, key):
+    def search(self, key):
         pass
 
     def __height_recursion(self, item):
@@ -35,7 +35,7 @@ class Tree(ABC):
     def __height_iteration(self, p):
         raise NotImplementedError(f"Height iteration is not implemented for {self.type} tree type.")
 
-    def _height(self, how="recursion"):
+    def height(self, how="recursion"):
         """
         This function finds the height of the tree
         Time Complexity : O(n)
@@ -111,7 +111,7 @@ class Tree(ABC):
             else:
                 print(item.data, end=",")
 
-    def _show_tree(self, how="inorder"):
+    def show_tree(self, how="inorder"):
         """
         Tree traversals
         Time Complexity : O(n)

@@ -133,20 +133,20 @@ class AVL(BST):
     def _insert_recursion(self, item, data):
         raise NotImplementedError(f"Recursive insertion is not implemented for {self.type} tree.")
     
-    def _insert(self, data, how="iteration"):
+    def insert(self, data, how="iteration"):
         
         if not self.root:
             self.n_elements+=1
             self.root = Node_V4(data)
             return
         
-        super()._insert(data, how)
+        super().insert(data, how)
     
-    def _delete(self, key):
+    def delete(self, key):
         raise NotImplementedError(f"Deletion is not implemented for {self.type} tree.")
     
-    def _search(self, key, how="recursion"):
-        return super()._search(key, how)
+    def search(self, key, how="recursion"):
+        return super().search(key, how)
 
     def show_avl(self, how="inorder"):
         super().show_bst(how)
