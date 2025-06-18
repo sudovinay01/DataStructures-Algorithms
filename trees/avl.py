@@ -107,7 +107,7 @@ class AVL(BST):
         Time Complexity : O(logn)
         Space Complexity : O(logn)
         """
-        insert_stack = Stack(2*math.ceil(math.log(self.n_elements)))
+        insert_stack = Stack(math.ceil(math.log2(self.n_elements)+1))
         ant, parent_ant = self.root, None
         while ant:
             parent_ant = ant
