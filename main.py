@@ -6,6 +6,7 @@ from linked_lists.doubly_linked_list import DLL
 from heap.Heap import Heap
 from queues.que import Q
 from trees.bst import BST
+from trees.avl import AVL
 import numpy as np
 
 # search example
@@ -103,3 +104,8 @@ bs11.delete(10)
 bs11.show_bst()
 bs11.delete(21)
 bs11.show_bst()
+
+avl = AVL()
+for x in range(10):
+    avl.insert(np.random.randint(1, 250, 1)[0])
+avl.show_avl(how="level")
