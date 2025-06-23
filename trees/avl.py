@@ -148,5 +148,5 @@ class AVL(BST):
     def search(self, key, how="recursion"):
         return super().search(key, how)
 
-    def show_avl(self, how="inorder"):
-        super().show_bst(how)
+    def show_avl(self, how="inorder", algo="recursion"):
+        super().show_bst(how, algo)

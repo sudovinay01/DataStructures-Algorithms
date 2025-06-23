@@ -223,5 +223,5 @@ class BST(Tree):
         except Exception as e:
             print("Deletion unsuccessfull...", e)
 
-    def show_bst(self, how="inorder"):
-        super().show_tree(how)
+    def show_bst(self, how="inorder", algo="recursion"):
+        super().show_tree(how, algo)
